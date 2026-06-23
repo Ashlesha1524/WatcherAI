@@ -8,6 +8,7 @@ import Heatmaps from "./pages/Heatmaps";
 import Satellite from "./pages/Satellite";
 import Accuracy from "./pages/Accuracy";
 import Predict from "./pages/Predict";
+import Landslide from "./pages/Landslide";
 
 function App() {
   return (
@@ -23,6 +24,8 @@ function App() {
           <Route path="/satellite" element={<Satellite />} />
           <Route path="/accuracy" element={<Accuracy />} />
           <Route path="/predict" element={<Predict />} />
+
+          <Route path="/landslide" element={<Landslide />} />
         </Routes>
       </div>
     </BrowserRouter>
