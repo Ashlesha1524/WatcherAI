@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 
 import Home from "./pages/Home";
-import Plots from "./pages/Plots";
+import Plots from "./pages/plots";
 import Heatmaps from "./pages/Heatmaps";
 import Satellite from "./pages/Satellite";
 import Accuracy from "./pages/Accuracy";
