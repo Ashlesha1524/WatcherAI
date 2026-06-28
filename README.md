@@ -279,17 +279,7 @@ Potential contribution areas include:
 * Bug fixes
 * Documentation improvements
 
----
 
-## Author
-
-**Srajal Tripathi**
-
-Bachelor of Technology – Computer Science & Engineering (Data Science)
-
-GitHub: *Add your GitHub profile*
-
-LinkedIn: *Add your LinkedIn profile*
 
 ---
 
