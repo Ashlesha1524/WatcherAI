@@ -12,7 +12,7 @@ export default function Landslide() {
 
     try {
       const response = await fetch(
-        `http://watcherai.onrender.com/landslide-risk/${city}`
+        `https://watcherai.onrender.com/landslide-risk/${city}`
       );
 
       const data = await response.json();
