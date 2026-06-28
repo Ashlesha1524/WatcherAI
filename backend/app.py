@@ -39,7 +39,7 @@ print("Loading WatcherAI model...")
 print("===================================")
 
 model = tf.keras.models.load_model(
-    "backend/models/floodnet_mobilenet.keras"
+    "models/floodnet_mobilenet.keras"
 )
 
 print("===================================")
