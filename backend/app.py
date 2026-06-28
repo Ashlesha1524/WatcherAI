@@ -4,6 +4,21 @@ import tensorflow as tf
 from PIL import Image
 import numpy as np
 import io
+import requests
+from dotenv import load_dotenv
+load_dotenv()
+
+# =========================
+# CONFIG
+# =========================
+
+import os
+
+API_KEY = os.getenv("OPENWEATHER_API_KEY")
+
+# =========================
+# FASTAPI
+# =========================
 
 app = FastAPI()
 
@@ -14,6 +29,10 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# =========================
+# LOAD FLOOD MODEL
+# =========================
 
 print("===================================")
 print("Loading WatcherAI model...")
@@ -27,11 +46,19 @@ print("===================================")
 print("Model loaded successfully!")
 print("===================================")
 
+# =========================
+# HOME
+# =========================
+
 @app.get("/")
 def home():
     return {
         "message": "WatcherAI API Running"
     }
+
+# =========================
+# FLOOD PREDICTION
+# =========================
 
 @app.post("/predict")
 async def predict(file: UploadFile = File(...)):
@@ -57,4 +84,49 @@ async def predict(file: UploadFile = File(...)):
     return {
         "prediction": result,
         "confidence": round(confidence * 100, 2)
+    }
+
+# =========================
+# LANDSLIDE RISK
+# =========================
+
+@app.get("/landslide-risk/{city}")
+def landslide_risk(city: str):
+
+    url = (
+        f"https://api.openweathermap.org/data/2.5/weather"
+        f"?q={city}"
+        f"&appid={API_KEY}"
+        f"&units=metric"
+    )
+
+    response = requests.get(url)
+    data = response.json()
+
+    if response.status_code != 200:
+        return {
+            "error": "City not found"
+        }
+
+    humidity = data["main"]["humidity"]
+
+    rainfall = 0
+
+    if "rain" in data:
+        rainfall = data["rain"].get("1h", 0)
+
+    if rainfall > 50 or humidity > 85:
+        risk = "HIGH"
+
+    elif rainfall > 20 or humidity > 70:
+        risk = "MODERATE"
+
+    else:
+        risk = "LOW"
+
+    return {
+        "city": city,
+        "humidity": humidity,
+        "rainfall_mm": rainfall,
+        "risk": risk
     }

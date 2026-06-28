@@ -26,10 +26,6 @@ export default function Home() {
                 Advanced Flood and Landslide Prediction System using
                 Machine Learning, Weather Forecasting and Real-Time Risk Analysis.
               </p>
-
-              <button className="px-8 py-3 rounded-lg bg-blue-600 text-white font-semibold">
-                Get Started
-              </button>
             </div>
 
             <div>
@@ -51,7 +47,7 @@ export default function Home() {
 
             <div className="flex justify-center">
               <img
-                src="https://images.unsplash.com/photo-1547683905-f686c993aae5?w=1000"
+                src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1000&q=80"
                 alt="Flood"
                 className="rounded-lg shadow-lg w-full max-w-lg"
               />

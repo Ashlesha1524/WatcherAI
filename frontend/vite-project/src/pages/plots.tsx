@@ -81,34 +81,63 @@ export default function Plots() {
   ];
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="max-w-7xl mx-auto px-8 py-10">
+    <div className="relative min-h-screen overflow-hidden">
+
+      {/* Background Image */}
+      <img
+        src="/background.jpg"
+        alt="Background"
+        className="absolute inset-0 w-full h-full object-cover opacity-10 pointer-events-none select-none"
+      />
+
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-white/60"></div>
+
+      {/* Content */}
+      <div className="relative z-10 max-w-7xl mx-auto px-8 py-10">
+
         <h1 className="text-4xl font-bold text-slate-800 mb-6">
           Flood Risk Plots
         </h1>
 
-        <div className="mb-6 flex gap-8">
+        {/* Legend */}
+
+        <div className="mb-6 flex gap-8 bg-white/80 backdrop-blur-sm p-4 rounded-xl shadow-lg w-fit">
+
           <div className="flex items-center gap-2">
             <div className="w-4 h-4 rounded-full bg-green-600"></div>
-            <span className="text-black">Low Risk</span>
+            <span className="text-black font-medium">
+              Low Risk
+            </span>
           </div>
 
           <div className="flex items-center gap-2">
             <div className="w-4 h-4 rounded-full bg-orange-500"></div>
-            <span className="text-black">Medium Risk</span>
+            <span className="text-black font-medium">
+              Medium Risk
+            </span>
           </div>
 
           <div className="flex items-center gap-2">
             <div className="w-4 h-4 rounded-full bg-red-600"></div>
-            <span className="text-black">High Risk</span>
+            <span className="text-black font-medium">
+              High Risk
+            </span>
           </div>
+
         </div>
 
-        <div className="rounded-xl overflow-hidden shadow-lg border">
+        {/* Map */}
+
+        <div className="rounded-2xl overflow-hidden shadow-2xl border border-gray-200 bg-white/80 backdrop-blur-sm">
+
           <MapContainer
             center={[22.5937, 78.9629]}
             zoom={5}
-            style={{ height: "750px", width: "100%" }}
+            style={{
+              height: "750px",
+              width: "100%",
+            }}
           >
             <TileLayer
               attribution="&copy; OpenStreetMap contributors"
@@ -124,6 +153,7 @@ export default function Plots() {
                   color: location.color,
                   fillColor: location.color,
                   fillOpacity: 0.9,
+                  weight: 2,
                 }}
               >
                 <Popup>
@@ -136,8 +166,11 @@ export default function Plots() {
               </CircleMarker>
             ))}
           </MapContainer>
+
         </div>
+
       </div>
+
     </div>
   );
 }
