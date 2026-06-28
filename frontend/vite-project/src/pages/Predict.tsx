@@ -20,32 +20,41 @@ export default function Predict() {
   }, [file]);
 
   const handlePredict = async () => {
-    if (!file) return;
+  if (!file) return;
 
-    const formData = new FormData();
-    formData.append("file", file);
+  const formData = new FormData();
+  formData.append("file", file);
 
-    setLoading(true);
-    setPrediction("");
-    setConfidence(null);
+  setLoading(true);
+  setPrediction("");
+  setConfidence(null);
 
-    try {
-      const response = await fetch("http://127.0.0.1:8000/predict", {
-        method: "POST",
-        body: formData,
-      });
+  try {
+    const response = await fetch("https://watcherai.onrender.com/predict", {
+      method: "POST",
+      body: formData,
+    });
 
-      const data = await response.json();
+    console.log("Status:", response.status);
 
-      setPrediction(data.prediction);
-      setConfidence(data.confidence);
-    } catch (err) {
-      console.error(err);
-      alert("Prediction failed.");
+    const text = await response.text();
+    console.log("Raw response:", text);
+
+    if (!response.ok) {
+      throw new Error(text);
     }
 
+    const data = JSON.parse(text);
+
+    setPrediction(data.prediction);
+    setConfidence(data.confidence);
+  } catch (err) {
+    console.error(err);
+    alert(err instanceof Error ? err.message : "Prediction failed.");
+  } finally {
     setLoading(false);
-  };
+  }
+};
 
   const clearImage = () => {
     setFile(null);

@@ -53,8 +53,6 @@ const locations = [
   },
 ];
 
-import { useEffect } from "react";
-
 function FlyToCity({ city }: { city: string }) {
   const map = useMap();
 
